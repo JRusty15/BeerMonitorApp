@@ -1,0 +1,43 @@
+﻿@page
+@model beervitalsModel
+<h2>Current Beer Vitals</h2>
+<h3>
+    @Model.Temperature
+</h3>
+<h3>
+    @Model.Humidity
+</h3>
+
+<div class="container">
+    <div id="chart1"></div>
+</div>
+
+@section scripts{
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script>
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            $.get('vitals', function (jsonData) {
+                var data = new google.visualization.DataTable();
+                data.addColumn('datetime', 'TimeStamp');
+                data.addColumn('number', 'Temperature');
+                for (var i = 0; i < jsonData.length; i++) {
+                    var timeStamp = new Date(jsonData[i].entryTimestamp);
+                    data.addRow([timeStamp, jsonData[i].temperature]);
+                }
+
+                //data = google.visualization.arrayToDataTable(jsonData, false);
+                var option = {
+                    title: "Line Chart",
+                    width: 800,
+                    height: 600
+                };
+                chart = new google.visualization.LineChart(document.getElementById('chart1'));
+                chart.draw(data, option);
+            })
+        }
+    </script>
+}
