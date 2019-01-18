@@ -23,6 +23,7 @@ namespace BeerMonitorApp
             {
                 data = JsonConvert.DeserializeObject<List<BeerTempChartData>>(await response.Content.ReadAsStringAsync());
             }
+            data.ForEach(x => x.EntryTimestamp = x.EntryTimestamp.ToLocalTime());
             data = data.OrderBy(x => x.EntryTimestamp).ToList();
             return new JsonResult(data);
         }
