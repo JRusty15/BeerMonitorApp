@@ -21,8 +21,8 @@ namespace BeerMonitorApp.Pages
             if (response.IsSuccessStatusCode)
             {
                 var data = JsonConvert.DeserializeObject<BeerTempAndHumidity>(await response.Content.ReadAsStringAsync());
-                Temperature = $"Temperature: {data.Temperature.ToString()} F";
-                Humidity = $"Humidity: {data.Humidity} %";
+                Temperature = $"Temperature: {Math.Round(data.Temperature, 2)} F";
+                Humidity = $"Humidity: {Math.Round(data.Humidity, 2)} %";
             }
         }
     }
