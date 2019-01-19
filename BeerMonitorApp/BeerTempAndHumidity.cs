@@ -16,6 +16,7 @@ namespace BeerMonitorApp
     public class BeerTempChartData
     {
         public double Temperature { get; set; }
+        public double Humidity { get; set; }
         public DateTime EntryTimestamp { get; set; }
     }
 }

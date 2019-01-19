@@ -10,6 +10,7 @@
 
 <div class="container">
     <div id="chart1"></div>
+    <div id="chart2"></div>
 </div>
 
 @section scripts{
@@ -22,21 +23,26 @@
         function drawChart() {
             $.get('vitals', function (jsonData) {
                 var data = new google.visualization.DataTable();
+                var data1 = new google.visualization.DataTable();
                 data.addColumn('datetime', 'TimeStamp');
                 data.addColumn('number', 'Temperature');
+                data1.addColumn('datetime', 'TimeStamp');
+                data1.addColumn('number', 'Humidity');
                 for (var i = 0; i < jsonData.length; i++) {
                     var timeStamp = new Date(jsonData[i].entryTimestamp);
                     data.addRow([timeStamp, jsonData[i].temperature]);
+                    data1.addRow([timeStamp, jsonData[i].humidity]);
                 }
 
-                //data = google.visualization.arrayToDataTable(jsonData, false);
                 var option = {
-                    title: "Line Chart",
+                    title: "Beer Vitals",
                     width: 800,
                     height: 600
                 };
                 chart = new google.visualization.LineChart(document.getElementById('chart1'));
+                chart1 = new google.visualization.LineChart(document.getElementById('chart2'));
                 chart.draw(data, option);
+                chart1.draw(data1, option);
             })
         }
     </script>
