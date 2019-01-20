@@ -15,7 +15,7 @@ namespace BeerMonitorApp
         {
             var data = new List<BeerTempChartData>();
             HttpClient client = new HttpClient();
-            var response = await client.GetAsync(@"https://beermonitorapi.azurewebsites.net/api/monitor/12");
+            var response = await client.GetAsync(@"https://beermonitorapi.azurewebsites.net/api/monitor/24");
             if (response.IsSuccessStatusCode)
             {
                 data = JsonConvert.DeserializeObject<List<BeerTempChartData>>(await response.Content.ReadAsStringAsync());
