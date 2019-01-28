@@ -34,15 +34,34 @@
                     data1.addRow([timeStamp, jsonData[i].humidity]);
                 }
 
-                var option = {
-                    title: "Beer Vitals",
+                var tempOptions = {
+                    title: "Beer Temperature",
                     width: 1200,
-                    height: 900
+                    height: 900,
+                    vAxis: {
+                        viewWindow: {
+                            min: 58,
+                            max: 72
+                        }
+                    }
                 };
+
+                var humidityOptions = {
+                    title: "Beer Humidity",
+                    width: 1200,
+                    height: 900,
+                    vAxis: {
+                        viewWindow: {
+                            min: 0,
+                            max: 80
+                        }
+                    }
+                };
+
                 chart = new google.visualization.LineChart(document.getElementById('chart1'));
                 chart1 = new google.visualization.LineChart(document.getElementById('chart2'));
-                chart.draw(data, option);
-                chart1.draw(data1, option);
+                chart.draw(data, tempOptions);
+                chart1.draw(data1, humidityOptions);
             })
         }
     </script>
