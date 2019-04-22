@@ -18,11 +18,10 @@ namespace BeerMonitorApp.Pages
             var response = await client.GetAsync(@"https://beermonitorapi.azurewebsites.net/api/monitor/latest");
             if (response.IsSuccessStatusCode)
             {
-                var data = JsonConvert.DeserializeObject<BeerTempAndHumidity>(await response.Content.ReadAsStringAsync());
+                var data = JsonConvert.DeserializeObject<BeerTempChartData>(await response.Content.ReadAsStringAsync());
                 Temperature = $"Temperature: {Math.Round(data.Temperature, 2)} F";
                 Humidity = $"Humidity: {Math.Round(data.Humidity, 2)} %";
-                var dt = DateTime.Parse(data.EntryTimestamp);
-                EntryTimestamp = $"Timestamp: {dt.ToString("MM/dd/yyyy hh:mm tt")}";
+                EntryTimestamp = $"Timestamp: {data.EntryTimestamp.ToLocalTime().ToString("MM/dd/yyyy hh:mm tt")}";
             }
         }
     }
