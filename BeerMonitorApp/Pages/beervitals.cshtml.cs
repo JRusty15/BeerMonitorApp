@@ -10,6 +10,7 @@ namespace BeerMonitorApp.Pages
     {
         public string Temperature { get; set; }
         public string Humidity { get; set; }
+        public string EntryTimestamp { get; set; }
 
         public async Task OnGet()
         {
@@ -20,6 +21,8 @@ namespace BeerMonitorApp.Pages
                 var data = JsonConvert.DeserializeObject<BeerTempAndHumidity>(await response.Content.ReadAsStringAsync());
                 Temperature = $"Temperature: {Math.Round(data.Temperature, 2)} F";
                 Humidity = $"Humidity: {Math.Round(data.Humidity, 2)} %";
+                var dt = DateTime.Parse(data.EntryTimestamp);
+                EntryTimestamp = $"Timestamp: {dt.ToString("MM/dd/yyyy hh:mm tt")}";
             }
         }
     }

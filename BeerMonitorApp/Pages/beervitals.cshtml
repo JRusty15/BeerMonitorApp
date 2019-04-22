@@ -7,6 +7,9 @@
 <h3>
     @Model.Humidity
 </h3>
+<h3>
+    @Model.EntryTimestamp
+</h3>
 
 <div class="container">
     <div id="chart1"></div>
@@ -40,8 +43,8 @@
                     height: 900,
                     vAxis: {
                         viewWindow: {
-                            min: 58,
-                            max: 72
+                            min: 60,
+                            max: 78
                         }
                     }
                 };
